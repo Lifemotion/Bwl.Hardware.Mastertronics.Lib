@@ -34,13 +34,14 @@ Partial Class MastertronicsTest
         Me.Label1 = New System.Windows.Forms.Label()
         Me.stepperSelect = New System.Windows.Forms.ComboBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.XMin = New System.Windows.Forms.CheckBox()
-        Me.XMax = New System.Windows.Forms.CheckBox()
-        Me.YMax = New System.Windows.Forms.CheckBox()
-        Me.YMin = New System.Windows.Forms.CheckBox()
+        Me.refreshBlockersState = New System.Windows.Forms.Button()
         Me.ZMax = New System.Windows.Forms.CheckBox()
         Me.ZMin = New System.Windows.Forms.CheckBox()
-        Me.refreshBlockersState = New System.Windows.Forms.Button()
+        Me.YMax = New System.Windows.Forms.CheckBox()
+        Me.YMin = New System.Windows.Forms.CheckBox()
+        Me.XMax = New System.Windows.Forms.CheckBox()
+        Me.XMin = New System.Windows.Forms.CheckBox()
+        Me.VirtualMode = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -62,6 +63,7 @@ Partial Class MastertronicsTest
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.VirtualMode)
         Me.GroupBox1.Controls.Add(Me.connectButton)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 27)
         Me.GroupBox1.Name = "GroupBox1"
@@ -175,45 +177,14 @@ Partial Class MastertronicsTest
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "SteppersBlockers"
         '
-        'XMin
+        'refreshBlockersState
         '
-        Me.XMin.AutoSize = True
-        Me.XMin.Location = New System.Drawing.Point(17, 22)
-        Me.XMin.Name = "XMin"
-        Me.XMin.Size = New System.Drawing.Size(50, 17)
-        Me.XMin.TabIndex = 0
-        Me.XMin.Text = "XMin"
-        Me.XMin.UseVisualStyleBackColor = True
-        '
-        'XMax
-        '
-        Me.XMax.AutoSize = True
-        Me.XMax.Location = New System.Drawing.Point(73, 22)
-        Me.XMax.Name = "XMax"
-        Me.XMax.Size = New System.Drawing.Size(53, 17)
-        Me.XMax.TabIndex = 1
-        Me.XMax.Text = "XMax"
-        Me.XMax.UseVisualStyleBackColor = True
-        '
-        'YMax
-        '
-        Me.YMax.AutoSize = True
-        Me.YMax.Location = New System.Drawing.Point(73, 48)
-        Me.YMax.Name = "YMax"
-        Me.YMax.Size = New System.Drawing.Size(53, 17)
-        Me.YMax.TabIndex = 3
-        Me.YMax.Text = "YMax"
-        Me.YMax.UseVisualStyleBackColor = True
-        '
-        'YMin
-        '
-        Me.YMin.AutoSize = True
-        Me.YMin.Location = New System.Drawing.Point(17, 48)
-        Me.YMin.Name = "YMin"
-        Me.YMin.Size = New System.Drawing.Size(50, 17)
-        Me.YMin.TabIndex = 2
-        Me.YMin.Text = "YMin"
-        Me.YMin.UseVisualStyleBackColor = True
+        Me.refreshBlockersState.Location = New System.Drawing.Point(17, 99)
+        Me.refreshBlockersState.Name = "refreshBlockersState"
+        Me.refreshBlockersState.Size = New System.Drawing.Size(109, 21)
+        Me.refreshBlockersState.TabIndex = 7
+        Me.refreshBlockersState.Text = "Refresh"
+        Me.refreshBlockersState.UseVisualStyleBackColor = True
         '
         'ZMax
         '
@@ -235,14 +206,55 @@ Partial Class MastertronicsTest
         Me.ZMin.Text = "ZMin"
         Me.ZMin.UseVisualStyleBackColor = True
         '
-        'refreshBlockersState
+        'YMax
         '
-        Me.refreshBlockersState.Location = New System.Drawing.Point(17, 99)
-        Me.refreshBlockersState.Name = "refreshBlockersState"
-        Me.refreshBlockersState.Size = New System.Drawing.Size(109, 21)
-        Me.refreshBlockersState.TabIndex = 7
-        Me.refreshBlockersState.Text = "Refresh"
-        Me.refreshBlockersState.UseVisualStyleBackColor = True
+        Me.YMax.AutoSize = True
+        Me.YMax.Location = New System.Drawing.Point(73, 48)
+        Me.YMax.Name = "YMax"
+        Me.YMax.Size = New System.Drawing.Size(53, 17)
+        Me.YMax.TabIndex = 3
+        Me.YMax.Text = "YMax"
+        Me.YMax.UseVisualStyleBackColor = True
+        '
+        'YMin
+        '
+        Me.YMin.AutoSize = True
+        Me.YMin.Location = New System.Drawing.Point(17, 48)
+        Me.YMin.Name = "YMin"
+        Me.YMin.Size = New System.Drawing.Size(50, 17)
+        Me.YMin.TabIndex = 2
+        Me.YMin.Text = "YMin"
+        Me.YMin.UseVisualStyleBackColor = True
+        '
+        'XMax
+        '
+        Me.XMax.AutoSize = True
+        Me.XMax.Location = New System.Drawing.Point(73, 22)
+        Me.XMax.Name = "XMax"
+        Me.XMax.Size = New System.Drawing.Size(53, 17)
+        Me.XMax.TabIndex = 1
+        Me.XMax.Text = "XMax"
+        Me.XMax.UseVisualStyleBackColor = True
+        '
+        'XMin
+        '
+        Me.XMin.AutoSize = True
+        Me.XMin.Location = New System.Drawing.Point(17, 22)
+        Me.XMin.Name = "XMin"
+        Me.XMin.Size = New System.Drawing.Size(50, 17)
+        Me.XMin.TabIndex = 0
+        Me.XMin.Text = "XMin"
+        Me.XMin.UseVisualStyleBackColor = True
+        '
+        'VirtualMode
+        '
+        Me.VirtualMode.AutoSize = True
+        Me.VirtualMode.Location = New System.Drawing.Point(6, 48)
+        Me.VirtualMode.Name = "VirtualMode"
+        Me.VirtualMode.Size = New System.Drawing.Size(55, 17)
+        Me.VirtualMode.TabIndex = 3
+        Me.VirtualMode.Text = "Virtual"
+        Me.VirtualMode.UseVisualStyleBackColor = True
         '
         'MastertronicsTest
         '
@@ -259,6 +271,7 @@ Partial Class MastertronicsTest
         Me.Controls.SetChildIndex(Me.GroupBox2, 0)
         Me.Controls.SetChildIndex(Me.GroupBox3, 0)
         Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
@@ -286,5 +299,6 @@ Partial Class MastertronicsTest
     Friend WithEvents YMin As System.Windows.Forms.CheckBox
     Friend WithEvents XMax As System.Windows.Forms.CheckBox
     Friend WithEvents XMin As System.Windows.Forms.CheckBox
+    Friend WithEvents VirtualMode As System.Windows.Forms.CheckBox
 
 End Class

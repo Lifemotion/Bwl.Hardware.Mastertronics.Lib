@@ -71,4 +71,12 @@ Public Class MastertronicsTest
         ZMax.Checked = blockers.ZMax
         _logger.AddMessage("Blockers refreshed")
     End Sub
+
+    Private Sub VirtualMode_CheckedChanged(sender As Object, e As EventArgs) Handles VirtualMode.CheckedChanged
+
+        _mastertronics.VirtualMode = VirtualMode.Checked
+        If VirtualMode.Checked Then
+            _mastertronics.VirtualForm.Show()
+        End If
+    End Sub
 End Class
