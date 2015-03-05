@@ -23,6 +23,7 @@ Partial Class MastertronicsVirtualForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MastertronicsVirtualForm))
         Me.xt = New System.Windows.Forms.TrackBar()
         Me.yt = New System.Windows.Forms.TrackBar()
         Me.zt = New System.Windows.Forms.TrackBar()
@@ -206,8 +207,11 @@ Partial Class MastertronicsVirtualForm
         Me.Controls.Add(Me.zt)
         Me.Controls.Add(Me.yt)
         Me.Controls.Add(Me.xt)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
         Me.Name = "MastertronicsVirtualForm"
-        Me.Text = "MastertronicsDebugForm"
+        Me.Text = "Mastertronics Virtual"
         CType(Me.xt, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.yt, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.zt, System.ComponentModel.ISupportInitialize).EndInit()

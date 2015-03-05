@@ -25,6 +25,9 @@ Public Class MastertronicsController
 
     Public Property VirtualMode As Boolean
 
+    Public Sub VirtualReset(min As Integer, value As Integer, max As Integer, divider As Integer)
+        VirtualForm.Init(min, value, max, divider)
+    End Sub
     Public ReadOnly Property VirtualForm As MastertronicsVirtualForm
         Get
             SyncLock Me
