@@ -37,7 +37,6 @@ Public Class MastertronicsController
         End Get
     End Property
 
-
     Public Sub StartStepping(stepperCode As StepperCode, steps As Integer, stepPauseSec As Double, releaseAfterEnd As Boolean)
         If VirtualMode = False Then
             Dim direction As Byte = 0
@@ -49,6 +48,8 @@ Public Class MastertronicsController
             Dim release As Byte = If(releaseAfterEnd, 1, 0)
             Dim response = _ss.Request(New SSRequest(0, 81, {stepperCode, stepsH, stepsL, direction, pauseH, pauseL, release}))
             If response.ResponseState <> ResponseState.ok Then Throw New Exception("RunStepping: " + response.ResponseState.ToString)
+            If response.Result <> 128 + 81 Then Throw New Exception("RunStepping: bad return code")
+       
         Else
             VirtualForm.IsBusy = True
             Dim t As New Threading.Thread(Sub()
@@ -59,6 +60,21 @@ Public Class MastertronicsController
         End If
     End Sub
 
+    Public Function GetStepperCounter(stepperCode As StepperCode) As Integer
+
+        Dim response = _ss.Request(New SSRequest(0, 88, {stepperCode}))
+        If response.ResponseState <> ResponseState.ok Then Throw New Exception("GetStepperCounter: " + response.ResponseState.ToString)
+        If response.Result <> 128 + 88 Then Throw New Exception("GetStepperCounter: bad return code")
+
+        Dim result As Integer = (CInt(response.Data(0)) << 24) + (CInt(response.Data(1)) << 16) + (CInt(response.Data(2)) << 8) + (CInt(response.Data(3)))
+        Return result
+    End Function
+
+    Public Sub ResetStepperCounters()
+        Dim response = _ss.Request(New SSRequest(0, 84, {}))
+        If response.ResponseState <> ResponseState.ok Then Throw New Exception("ResetStepperCounters: " + response.ResponseState.ToString)
+        If response.Result <> 128 + 84 Then Throw New Exception("ResetStepperCounters: bad return code")
+    End Sub
 
     Public Function GetStepperBlockersState() As StepperBlockers
         If VirtualMode = False Then

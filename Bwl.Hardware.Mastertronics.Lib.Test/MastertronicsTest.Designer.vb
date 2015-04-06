@@ -24,6 +24,7 @@ Partial Class MastertronicsTest
     Private Sub InitializeComponent()
         Me.connectButton = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.VirtualMode = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.releaseAfterEndCheckbox = New System.Windows.Forms.CheckBox()
         Me.runSteppingButton = New System.Windows.Forms.Button()
@@ -41,7 +42,9 @@ Partial Class MastertronicsTest
         Me.YMin = New System.Windows.Forms.CheckBox()
         Me.XMax = New System.Windows.Forms.CheckBox()
         Me.XMin = New System.Windows.Forms.CheckBox()
-        Me.VirtualMode = New System.Windows.Forms.CheckBox()
+        Me.positionResult = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -49,7 +52,7 @@ Partial Class MastertronicsTest
         '
         'logWriter
         '
-        Me.logWriter.Location = New System.Drawing.Point(0, 164)
+        Me.logWriter.Location = New System.Drawing.Point(0, 161)
         Me.logWriter.Size = New System.Drawing.Size(712, 322)
         '
         'connectButton
@@ -72,8 +75,21 @@ Partial Class MastertronicsTest
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Controller"
         '
+        'VirtualMode
+        '
+        Me.VirtualMode.AutoSize = True
+        Me.VirtualMode.Location = New System.Drawing.Point(6, 48)
+        Me.VirtualMode.Name = "VirtualMode"
+        Me.VirtualMode.Size = New System.Drawing.Size(55, 17)
+        Me.VirtualMode.TabIndex = 3
+        Me.VirtualMode.Text = "Virtual"
+        Me.VirtualMode.UseVisualStyleBackColor = True
+        '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Button1)
+        Me.GroupBox2.Controls.Add(Me.Label4)
+        Me.GroupBox2.Controls.Add(Me.positionResult)
         Me.GroupBox2.Controls.Add(Me.releaseAfterEndCheckbox)
         Me.GroupBox2.Controls.Add(Me.runSteppingButton)
         Me.GroupBox2.Controls.Add(Me.Label3)
@@ -84,7 +100,7 @@ Partial Class MastertronicsTest
         Me.GroupBox2.Controls.Add(Me.stepperSelect)
         Me.GroupBox2.Location = New System.Drawing.Point(110, 27)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(307, 126)
+        Me.GroupBox2.Size = New System.Drawing.Size(377, 126)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Steppers"
@@ -94,7 +110,7 @@ Partial Class MastertronicsTest
         Me.releaseAfterEndCheckbox.AutoSize = True
         Me.releaseAfterEndCheckbox.Checked = True
         Me.releaseAfterEndCheckbox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.releaseAfterEndCheckbox.Location = New System.Drawing.Point(87, 98)
+        Me.releaseAfterEndCheckbox.Location = New System.Drawing.Point(217, 48)
         Me.releaseAfterEndCheckbox.Name = "releaseAfterEndCheckbox"
         Me.releaseAfterEndCheckbox.Size = New System.Drawing.Size(106, 17)
         Me.releaseAfterEndCheckbox.TabIndex = 7
@@ -103,9 +119,9 @@ Partial Class MastertronicsTest
         '
         'runSteppingButton
         '
-        Me.runSteppingButton.Location = New System.Drawing.Point(214, 19)
+        Me.runSteppingButton.Location = New System.Drawing.Point(329, 45)
         Me.runSteppingButton.Name = "runSteppingButton"
-        Me.runSteppingButton.Size = New System.Drawing.Size(81, 21)
+        Me.runSteppingButton.Size = New System.Drawing.Size(46, 21)
         Me.runSteppingButton.TabIndex = 6
         Me.runSteppingButton.Text = "Go"
         Me.runSteppingButton.UseVisualStyleBackColor = True
@@ -113,7 +129,7 @@ Partial Class MastertronicsTest
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(15, 75)
+        Me.Label3.Location = New System.Drawing.Point(15, 48)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(68, 13)
         Me.Label3.TabIndex = 5
@@ -121,7 +137,7 @@ Partial Class MastertronicsTest
         '
         'stepsPauseTextbox
         '
-        Me.stepsPauseTextbox.Location = New System.Drawing.Point(87, 72)
+        Me.stepsPauseTextbox.Location = New System.Drawing.Point(87, 45)
         Me.stepsPauseTextbox.Name = "stepsPauseTextbox"
         Me.stepsPauseTextbox.Size = New System.Drawing.Size(121, 20)
         Me.stepsPauseTextbox.TabIndex = 4
@@ -130,7 +146,7 @@ Partial Class MastertronicsTest
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(15, 49)
+        Me.Label2.Location = New System.Drawing.Point(214, 22)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(34, 13)
         Me.Label2.TabIndex = 3
@@ -138,7 +154,7 @@ Partial Class MastertronicsTest
         '
         'stepsCountTextbox
         '
-        Me.stepsCountTextbox.Location = New System.Drawing.Point(87, 46)
+        Me.stepsCountTextbox.Location = New System.Drawing.Point(254, 19)
         Me.stepsCountTextbox.Name = "stepsCountTextbox"
         Me.stepsCountTextbox.Size = New System.Drawing.Size(121, 20)
         Me.stepsCountTextbox.TabIndex = 2
@@ -170,7 +186,7 @@ Partial Class MastertronicsTest
         Me.GroupBox3.Controls.Add(Me.YMin)
         Me.GroupBox3.Controls.Add(Me.XMax)
         Me.GroupBox3.Controls.Add(Me.XMin)
-        Me.GroupBox3.Location = New System.Drawing.Point(423, 27)
+        Me.GroupBox3.Location = New System.Drawing.Point(493, 27)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(138, 126)
         Me.GroupBox3.TabIndex = 5
@@ -246,21 +262,38 @@ Partial Class MastertronicsTest
         Me.XMin.Text = "XMin"
         Me.XMin.UseVisualStyleBackColor = True
         '
-        'VirtualMode
+        'positionResult
         '
-        Me.VirtualMode.AutoSize = True
-        Me.VirtualMode.Location = New System.Drawing.Point(6, 48)
-        Me.VirtualMode.Name = "VirtualMode"
-        Me.VirtualMode.Size = New System.Drawing.Size(55, 17)
-        Me.VirtualMode.TabIndex = 3
-        Me.VirtualMode.Text = "Virtual"
-        Me.VirtualMode.UseVisualStyleBackColor = True
+        Me.positionResult.Enabled = False
+        Me.positionResult.Location = New System.Drawing.Point(87, 71)
+        Me.positionResult.Name = "positionResult"
+        Me.positionResult.Size = New System.Drawing.Size(121, 20)
+        Me.positionResult.TabIndex = 8
+        Me.positionResult.Text = "0"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(15, 74)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(44, 13)
+        Me.Label4.TabIndex = 9
+        Me.Label4.Text = "Position"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(214, 70)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(46, 21)
+        Me.Button1.TabIndex = 10
+        Me.Button1.Text = "Reset"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'MastertronicsTest
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(712, 484)
+        Me.ClientSize = New System.Drawing.Size(712, 481)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
@@ -300,5 +333,8 @@ Partial Class MastertronicsTest
     Friend WithEvents XMax As System.Windows.Forms.CheckBox
     Friend WithEvents XMin As System.Windows.Forms.CheckBox
     Friend WithEvents VirtualMode As System.Windows.Forms.CheckBox
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents positionResult As System.Windows.Forms.TextBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class

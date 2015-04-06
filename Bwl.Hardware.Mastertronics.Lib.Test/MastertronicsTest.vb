@@ -48,6 +48,9 @@ Public Class MastertronicsTest
             Dim blockers = _mastertronics.GetStepperBlockersState
             'показываем на форме 
             ShowBlockersState(blockers)
+            'получаем значение внутреннего счетчика шагов
+            Dim position = _mastertronics.GetStepperCounter(stepperCode)
+            positionResult.Text = position.ToString
         Catch ex As Exception
             _logger.AddError(ex.Message)
         End Try
@@ -78,5 +81,13 @@ Public Class MastertronicsTest
         If VirtualMode.Checked Then
             _mastertronics.VirtualForm.Show()
         End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Try
+            _mastertronics.ResetStepperCounters()
+        Catch ex As Exception
+            _logger.AddError(ex.Message)
+        End Try
     End Sub
 End Class
