@@ -1,10 +1,8 @@
-#define CFG CFG_TESTPLATFORM_ONE
 #define F_CPU 16000000UL
 #define BAUD 38400
-#define DEV_NAME "BwlTestPl1.0"
-//#define TX_START_MACRO 	{}
-//#define TX_END_MACRO 	{}
-//#define FUSES_VALUE  { 0xDC, 0xCA , 0xFD, }// low high extended
+#define DEV_NAME "Bwl.Mastertronics.Fw.1.1"
+
+//#define FUSES_VALUE  { 0xDE, 0xC0 , 0xFD, }// low high extended
 
 #include <avr/boot.h>
 #include <avr/io.h>
@@ -13,18 +11,20 @@
 #include <util/delay.h>
 
 #include "refs/bwl_uart.h"
-#include "refs/bwl_tools.h"
 #include "refs/bwl_simplserial.h"
 
 int32_t stepper_counter[4];
-
-void sserial_send_start()
+#define sbi(port, bit)			(port) |=  (1 << (bit))
+#define cbi(port, bit)			(port) &= ~(1 << (bit))
+#define getbit(port, bit)		((port) &   (1 << (bit)))
+#define setbit(port,bit,val)	{if ((val)) {(port)|= (1 << (bit));} else {(port) &= ~(1 << (bit));}}
+	
+void sserial_send_start(unsigned char portindex)
 {
 	//TX_START_MACRO
-	
 }
 
-void sserial_send_end()
+void sserial_send_end(unsigned char portindex)
 {
 	//TX_END_MACRO
 }
@@ -128,9 +128,12 @@ byte stepper_blockers()
 	return result;
 }
 
+void var_delay_ms(int ms)
+{
+	for (int i=0; i<ms; i++)_delay_ms(1.0);
+}
 
-
-void sserial_process_request()
+void sserial_process_request(unsigned char portindex)
 {
 	//PING
 	if (sserial_request.command==80)
@@ -206,7 +209,7 @@ void motorboard_run_infinite()
 {
 	while(1)
 	{
-		sserial_poll_uart();
+		sserial_poll_uart(0);
 		wdt_reset();
 	}
 }
@@ -215,14 +218,14 @@ void motorboard_init()
 {
 	stepper_blockers();
 	wdt_enable(WDTO_8S);
-	uart_init_withdivider(UBRR_VALUE);
+	uart_init_withdivider(0,UBRR_VALUE);
 }
 
 int main(void)
 {	
 	motorboard_init();
 		
-	for (int i=0; i<32; i++) sserial_devname[i]="Bwl.Mastertronics.Fw.1.0         "[i];
+	for (int i=0; i<32; i++) sserial_devname[i]=DEV_NAME[i];
 	sbi(DDRB,7);cbi(PORTB,7);
 	//return;
 	//stepper_work(2,-10000,1,3);

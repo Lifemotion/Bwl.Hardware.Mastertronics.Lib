@@ -43,6 +43,10 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bwl.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\refs\Bwl.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="Bwl.Hardware.Serial">
       <HintPath>..\refs\Bwl.Hardware.Serial.dll</HintPath>
     </Reference>

@@ -90,4 +90,25 @@ Public Class MastertronicsTest
             _logger.AddError(ex.Message)
         End Try
     End Sub
+
+    Private Sub MastertronicsTest_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        Dim steps As Integer = Val(stepsCountTextbox.Text)
+        'пауза между шагами в секундах. т.к. на форме она была в милисекундах, делим на 1000
+        Dim stepPause As Double = Val(stepsPauseTextbox.Text) / 1000.0
+        'освободить ли мотор после движения или оставить под током. Если надо просто освободить, без движения - надо вызвать StartStepping и указать 0 шагов
+        Dim releaseAfterEnd As Boolean = releaseAfterEndCheckbox.Checked
+
+        'запускаем процесс движения. все процедуры синхронные, т.е. возвращают определенный ответ, полученный от контроллера или ошибку
+        Select Case e.KeyCode
+            Case Keys.Left
+                _mastertronics.StartStepping(MastertronicsController.StepperCode.X, -steps, stepPause, releaseAfterEnd)
+            Case Keys.Right
+                _mastertronics.StartStepping(MastertronicsController.StepperCode.X, +steps, stepPause, releaseAfterEnd)
+            Case Keys.Up
+                _mastertronics.StartStepping(MastertronicsController.StepperCode.Y, -steps, stepPause, releaseAfterEnd)
+            Case Keys.Down
+                _mastertronics.StartStepping(MastertronicsController.StepperCode.Y, +steps, stepPause, releaseAfterEnd)
+
+        End Select
+    End Sub
 End Class

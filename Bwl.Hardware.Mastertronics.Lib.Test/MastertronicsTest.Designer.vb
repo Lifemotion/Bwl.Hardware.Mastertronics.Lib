@@ -26,6 +26,9 @@ Partial Class MastertronicsTest
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.VirtualMode = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.positionResult = New System.Windows.Forms.TextBox()
         Me.releaseAfterEndCheckbox = New System.Windows.Forms.CheckBox()
         Me.runSteppingButton = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -42,9 +45,6 @@ Partial Class MastertronicsTest
         Me.YMin = New System.Windows.Forms.CheckBox()
         Me.XMax = New System.Windows.Forms.CheckBox()
         Me.XMin = New System.Windows.Forms.CheckBox()
-        Me.positionResult = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -105,6 +105,33 @@ Partial Class MastertronicsTest
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Steppers"
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(214, 70)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(46, 21)
+        Me.Button1.TabIndex = 10
+        Me.Button1.Text = "Reset"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(15, 74)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(44, 13)
+        Me.Label4.TabIndex = 9
+        Me.Label4.Text = "Position"
+        '
+        'positionResult
+        '
+        Me.positionResult.Enabled = False
+        Me.positionResult.Location = New System.Drawing.Point(87, 71)
+        Me.positionResult.Name = "positionResult"
+        Me.positionResult.Size = New System.Drawing.Size(121, 20)
+        Me.positionResult.TabIndex = 8
+        Me.positionResult.Text = "0"
+        '
         'releaseAfterEndCheckbox
         '
         Me.releaseAfterEndCheckbox.AutoSize = True
@@ -158,7 +185,7 @@ Partial Class MastertronicsTest
         Me.stepsCountTextbox.Name = "stepsCountTextbox"
         Me.stepsCountTextbox.Size = New System.Drawing.Size(121, 20)
         Me.stepsCountTextbox.TabIndex = 2
-        Me.stepsCountTextbox.Text = "-1000"
+        Me.stepsCountTextbox.Text = "1000"
         '
         'Label1
         '
@@ -262,33 +289,6 @@ Partial Class MastertronicsTest
         Me.XMin.Text = "XMin"
         Me.XMin.UseVisualStyleBackColor = True
         '
-        'positionResult
-        '
-        Me.positionResult.Enabled = False
-        Me.positionResult.Location = New System.Drawing.Point(87, 71)
-        Me.positionResult.Name = "positionResult"
-        Me.positionResult.Size = New System.Drawing.Size(121, 20)
-        Me.positionResult.TabIndex = 8
-        Me.positionResult.Text = "0"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(15, 74)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(44, 13)
-        Me.Label4.TabIndex = 9
-        Me.Label4.Text = "Position"
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(214, 70)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(46, 21)
-        Me.Button1.TabIndex = 10
-        Me.Button1.Text = "Reset"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'MastertronicsTest
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -297,6 +297,7 @@ Partial Class MastertronicsTest
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
+        Me.KeyPreview = True
         Me.Name = "MastertronicsTest"
         Me.Text = "Mastertronics Test"
         Me.Controls.SetChildIndex(Me.logWriter, 0)
