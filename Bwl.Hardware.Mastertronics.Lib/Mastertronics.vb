@@ -1,7 +1,4 @@
-﻿Imports Bwl.Hardware.SimplSerial
-
-Public Class MastertronicsController
-
+﻿Public Class MastertronicsController
     Public Enum StepperCode As Byte
         Undefined = 0
         X = 1
@@ -10,7 +7,6 @@ Public Class MastertronicsController
         E0 = 21
         E1 = 22
     End Enum
-
     Public Class StepperBlockers
         Public Property XMin As Boolean
         Public Property XMax As Boolean
@@ -20,7 +16,7 @@ Public Class MastertronicsController
         Public Property ZMax As Boolean
     End Class
 
-    Private _ss As New SimplSerialBus("COM0")
+    Private _ss As New SimplSerialBusLight("COM0")
     Private _virtualForm As MastertronicsVirtualForm
 
     Public Property VirtualMode As Boolean
@@ -49,7 +45,7 @@ Public Class MastertronicsController
             Dim response = _ss.Request(New SSRequest(0, 81, {stepperCode, stepsH, stepsL, direction, pauseH, pauseL, release}))
             If response.ResponseState <> ResponseState.ok Then Throw New Exception("RunStepping: " + response.ResponseState.ToString)
             If response.Result <> 128 + 81 Then Throw New Exception("RunStepping: bad return code")
-       
+
         Else
             VirtualForm.IsBusy = True
             Dim t As New Threading.Thread(Sub()
@@ -116,9 +112,10 @@ Public Class MastertronicsController
 
     Public Sub Connect(port As String)
         If VirtualMode = False Then
-            _ss.SerialDevice.DeviceAddress = port
-            _ss.SerialDevice.DeviceSpeed = 38400
-            _ss.Connect()
+            If _ss.SerialPort.IsOpen Then _ss.SerialPort.Close()
+            _ss.SerialPort.PortName = port
+            _ss.SerialPort.BaudRate = 38400
+            _ss.SerialPort.Open()
         End If
     End Sub
 
