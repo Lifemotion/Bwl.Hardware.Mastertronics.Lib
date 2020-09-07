@@ -184,8 +184,8 @@ void sserial_process_request(unsigned char portindex)
 		int delay =(sserial_request.data[4]<<8)|sserial_request.data[5];
 		byte freem=sserial_request.data[6];
 		stepper_work(motor,steps,freem,delay);
-		sserial_response.result=128+sserial_request.command;
-		
+
+		sserial_response.result=128+88;
 		uint32_t pos=get_stepper_position(motor);
 		sserial_response.data[0]=(pos>>24)&255;
 		sserial_response.data[1]=(pos>>16)&255;

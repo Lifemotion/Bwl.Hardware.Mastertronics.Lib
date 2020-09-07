@@ -98,17 +98,42 @@ Public Class MastertronicsTest
         'освободить ли мотор после движения или оставить под током. Если надо просто освободить, без движения - надо вызвать StartStepping и указать 0 шагов
         Dim releaseAfterEnd As Boolean = releaseAfterEndCheckbox.Checked
 
-        'запускаем процесс движения. все процедуры синхронные, т.е. возвращают определенный ответ, полученный от контроллера или ошибку
-        Select Case e.KeyCode
-            Case Keys.Left
-                _mastertronics.StartStepping(MastertronicsController.StepperCode.X, -steps, stepPause, releaseAfterEnd)
-            Case Keys.Right
-                _mastertronics.StartStepping(MastertronicsController.StepperCode.X, +steps, stepPause, releaseAfterEnd)
-            Case Keys.Up
-                _mastertronics.StartStepping(MastertronicsController.StepperCode.Y, -steps, stepPause, releaseAfterEnd)
-            Case Keys.Down
-                _mastertronics.StartStepping(MastertronicsController.StepperCode.Y, +steps, stepPause, releaseAfterEnd)
+        Try
+            Select Case e.KeyCode
+                Case Keys.Left
+                    _mastertronics.StartStepping(MastertronicsController.StepperCode.X, -steps, stepPause, releaseAfterEnd)
+                Case Keys.Right
+                    _mastertronics.StartStepping(MastertronicsController.StepperCode.X, +steps, stepPause, releaseAfterEnd)
+                Case Keys.Up
+                    _mastertronics.StartStepping(MastertronicsController.StepperCode.Y, -steps, stepPause, releaseAfterEnd)
+                Case Keys.Down
+                    _mastertronics.StartStepping(MastertronicsController.StepperCode.Y, +steps, stepPause, releaseAfterEnd)
 
-        End Select
+            End Select
+        Catch ex As Exception
+
+        End Try       'запускаем процесс движения. все процедуры синхронные, т.е. возвращают определенный ответ, полученный от контроллера или ошибку
+
+    End Sub
+
+    Private Sub runStepAndWait_Click(sender As Object, e As EventArgs) Handles runStepAndWait.Click
+        'код движка (перечисление)
+        Dim stepperCode As MastertronicsController.StepperCode
+        [Enum].TryParse(Of MastertronicsController.StepperCode)(stepperSelect.Text, stepperCode)
+        'число шагов (именно шагов непосредственно и без конвертации). Может быть отрицательным, тогда поедет в другую сторону
+        Dim steps As Integer = Val(stepsCountTextbox.Text)
+        'пауза между шагами в секундах. т.к. на форме она была в милисекундах, делим на 1000
+        Dim stepPause As Double = Val(stepsPauseTextbox.Text) / 1000.0
+        'освободить ли мотор после движения или оставить под током. Если надо просто освободить, без движения - надо вызвать StartStepping и указать 0 шагов
+        Dim releaseAfterEnd As Boolean = releaseAfterEndCheckbox.Checked
+        Try
+            _logger.AddMessage("Stepping started")
+            Dim position = _mastertronics.StepAndWait(stepperCode, steps, stepPause, releaseAfterEnd)
+            _logger.AddMessage("Stepping finished")
+            'в цикле ждем окончания движения. контроллер может выполнять только одно движение одновременно.
+            positionResult.Text = position.ToString
+        Catch ex As Exception
+            _logger.AddError(ex.Message)
+        End Try
     End Sub
 End Class

@@ -56,6 +56,22 @@
         End If
     End Sub
 
+    Public Function StepAndWait(stepperCode As StepperCode, steps As Integer, stepPauseSec As Double, releaseAfterEnd As Boolean) As Integer
+        StartStepping(stepperCode, steps, stepPauseSec, releaseAfterEnd)
+        Dim answer = _ss.Read
+        Dim started = Now
+        Do While answer Is Nothing And (Now - started).TotalSeconds < (stepPauseSec * Math.Abs(steps) + 1)
+            answer = _ss.Read
+            Threading.Thread.Sleep(10)
+        Loop
+        If answer Is Nothing Then Throw New Exception("StepAndWait: no answer after stepping end")
+        If answer.ResponseState <> ResponseState.ok Then Throw New Exception("StepAndWait: " + answer.ResponseState.ToString)
+        If answer.Result <> 128 + 88 Then Throw New Exception("StepAndWait: bad return code")
+
+        Dim result As Integer = (CInt(answer.Data(0)) << 24) + (CInt(answer.Data(1)) << 16) + (CInt(answer.Data(2)) << 8) + (CInt(answer.Data(3)))
+        Return result
+    End Function
+
     Public Function GetStepperCounter(stepperCode As StepperCode) As Integer
 
         Dim response = _ss.Request(New SSRequest(0, 88, {stepperCode}))

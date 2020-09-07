@@ -45,6 +45,7 @@ Partial Class MastertronicsTest
         Me.YMin = New System.Windows.Forms.CheckBox()
         Me.XMax = New System.Windows.Forms.CheckBox()
         Me.XMin = New System.Windows.Forms.CheckBox()
+        Me.runStepAndWait = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -87,6 +88,7 @@ Partial Class MastertronicsTest
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.runStepAndWait)
         Me.GroupBox2.Controls.Add(Me.Button1)
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.positionResult)
@@ -289,6 +291,15 @@ Partial Class MastertronicsTest
         Me.XMin.Text = "XMin"
         Me.XMin.UseVisualStyleBackColor = True
         '
+        'runStepAndWait
+        '
+        Me.runStepAndWait.Location = New System.Drawing.Point(309, 70)
+        Me.runStepAndWait.Name = "runStepAndWait"
+        Me.runStepAndWait.Size = New System.Drawing.Size(66, 21)
+        Me.runStepAndWait.TabIndex = 11
+        Me.runStepAndWait.Text = "Go&&Wait"
+        Me.runStepAndWait.UseVisualStyleBackColor = True
+        '
         'MastertronicsTest
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -337,5 +348,5 @@ Partial Class MastertronicsTest
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents positionResult As System.Windows.Forms.TextBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
-
+    Friend WithEvents runStepAndWait As Button
 End Class
